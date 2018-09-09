@@ -6,13 +6,13 @@ class FaceRecognizer():
     """
     Class for Face Recognition
     """
-    def __init__(self, config,
-                 dlib_face_predictor="shape_predictor_68_face_landmarks.dat",
-                 network_model="nn4.small2.v1.t7",
-                 img_dim=96, threshold=0.5):
+    def __init__(self, config_path,
+                 dlib_face_predictor,
+                 network_model,
+                 img_dim, threshold):
         self._openface_util = OpenfaceUtil(dlib_face_predictor, network_model, img_dim)
         self.threshold = threshold
-        self.configuration = parse_config(config)
+        self.configuration = parse_config(config_path)
         self._compute_representation()
 
     def _compute_representation(self):
