@@ -8,9 +8,11 @@ def main():
         parser = ArgumentParser()
         arguments = parser.parse()
         if arguments.log_path:
-            logging.basicConfig(filename=arguments.log_path, level=arguments.log_level)
+            logging.basicConfig(filename=arguments.log_path, level=arguments.log_level.upper())
         else:
-            logging.basicConfig(level=arguments.log_level)
+            logging.basicConfig(level=arguments.log_level.upper())
+
+        logging.debug("Arguments: {}".format(arguments))
 
         face_recognizer = FaceRecognizer(arguments.config_path,
                                          arguments.dlib_face_predictor,
