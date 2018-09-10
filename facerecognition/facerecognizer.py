@@ -1,5 +1,6 @@
 from utils.util import parse_config
 from utils.openface_utility import OpenfaceUtil
+import logging
 
 
 class FaceRecognizer():
@@ -25,7 +26,9 @@ class FaceRecognizer():
         recognized_name = None
         for config in self.configuration:
             distance = OpenfaceUtil.get_distance(rep, config["representation"])
+            logging.debug("Distance from {} : {}".format(config["name"], distance))
             if distance <= min_distance:
                 min_distance = distance
                 recognized_name = config["name"]
+        logging.debug("Minimum Distance: {}".format(min_distance))
         return recognized_name

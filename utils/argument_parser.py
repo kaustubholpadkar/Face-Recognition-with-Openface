@@ -73,9 +73,13 @@ class ArgumentParser():
     def parse(self):
         """
         Function to parse arguments
+        :return arguments
         """
         arguments = self._parser.parse_args()
-        self._validate(arguments)
+        try:
+            self._validate(arguments)
+        except Exception as e:
+            raise Exception("Arguments Validation Failed: {}".format(e))
         return arguments
 
     def _validate(self, arguments):
@@ -83,4 +87,8 @@ class ArgumentParser():
         Function to validate arguments
         :param arguments: arguments parsed by parser
         """
-        pass
+        log_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]  # log levels
+
+        if arguments.log_level.upper().strip() not in log_levels:
+            raise ValueError("Invalid Log Level (Values: info/debug/warning/error/critical)")
+
